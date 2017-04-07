@@ -1,0 +1,479 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/bruce/node-temp"
+
+    >temp (v0.8.3)</a>
+</h1>
+<h4>Temporary files and directories</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.temp">module temp</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.temp.cleanup">
+            function <span class="apidocSignatureSpan">temp.</span>cleanup
+            <span class="apidocSignatureSpan">(callback)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.temp.cleanupSync">
+            function <span class="apidocSignatureSpan">temp.</span>cleanupSync
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.temp.createWriteStream">
+            function <span class="apidocSignatureSpan">temp.</span>createWriteStream
+            <span class="apidocSignatureSpan">(affixes)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.temp.mkdir">
+            function <span class="apidocSignatureSpan">temp.</span>mkdir
+            <span class="apidocSignatureSpan">(affixes, callback)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.temp.mkdirSync">
+            function <span class="apidocSignatureSpan">temp.</span>mkdirSync
+            <span class="apidocSignatureSpan">(affixes)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.temp.open">
+            function <span class="apidocSignatureSpan">temp.</span>open
+            <span class="apidocSignatureSpan">(affixes, callback)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.temp.openSync">
+            function <span class="apidocSignatureSpan">temp.</span>openSync
+            <span class="apidocSignatureSpan">(affixes)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.temp.path">
+            function <span class="apidocSignatureSpan">temp.</span>path
+            <span class="apidocSignatureSpan">(rawAffixes, defaultPrefix)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.temp.track">
+            function <span class="apidocSignatureSpan">temp.</span>track
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">temp.</span>dir</span>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.temp" id="apidoc.module.temp">module temp</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.temp.cleanup" id="apidoc.element.temp.cleanup">
+        function <span class="apidocSignatureSpan">temp.</span>cleanup
+        <span class="apidocSignatureSpan">(callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function cleanup(callback) {
+  if (!tracking) {
+    if (callback) {
+      callback(new Error(&#x22;not tracking&#x22;));
+    }
+    return;
+  }
+  cleanupFiles(function(fileErr, fileCount) {
+    if (fileErr) {
+      if (callback) {
+        callback(fileErr, {files: fileCount})
+      }
+    } else {
+      cleanupDirs(function(dirErr, dirCount) {
+        if (callback) {
+          callback(dirErr, {files: fileCount, dirs: dirCount});
+        }
+      });
+    }
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```javascript
+&#x3e; temp.cleanupSync();
+{ files: 1,
+  dirs:  0 }
+```
+
+```javascript
+&#x3e; temp.<span class="apidocCodeKeywordSpan">cleanup</span>(function(err, stats) {
+    console.log(stats);
+  });
+{ files: 1,
+  dirs:  0 }
+```
+
+Note: If you&#x27;re not tracking, an error (&#x22;not tracking&#x22;) will be passed
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.temp.cleanupSync" id="apidoc.element.temp.cleanupSync">
+        function <span class="apidocSignatureSpan">temp.</span>cleanupSync
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function cleanupSync() {
+  if (!tracking) {
+    return false;
+  }
+  var fileCount = cleanupFilesSync();
+  var dirCount  = cleanupDirsSync();
+  return {files: fileCount, dirs: dirCount};
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+When tracking, you can run `cleanup()` and `cleanupSync()` anytime
+(`cleanupSync()` will be run for you on process exit). An object will
+be returned (or passed to the callback) with cleanup counts and
+the file/directory tracking lists will be reset.
+
+```javascript
+&#x3e; temp.<span class="apidocCodeKeywordSpan">cleanupSync</span>();
+{ files: 1,
+  dirs:  0 }
+```
+
+```javascript
+&#x3e; temp.cleanup(function(err, stats) {
+console.log(stats);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.temp.createWriteStream" id="apidoc.element.temp.createWriteStream">
+        function <span class="apidocSignatureSpan">temp.</span>createWriteStream
+        <span class="apidocSignatureSpan">(affixes)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function createWriteStream(affixes) {
+  var filePath = generateName(affixes, &#x27;s-&#x27;);
+  var stream = fs.createWriteStream(filePath, {flags: RDWR_EXCL, mode: 0600});
+  deleteFileOnExit(filePath);
+  return stream;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+```javascript
+var temp = require(&#x27;temp&#x27;);
+
+// Automatically track and cleanup files at exit
+temp.track();
+
+var stream = temp.<span class="apidocCodeKeywordSpan">createWriteStream</span>();
+stream.write(&#x22;Some data&#x22;);
+// Maybe do some other things
+stream.end();
+```
+
+### Affixes
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.temp.mkdir" id="apidoc.element.temp.mkdir">
+        function <span class="apidocSignatureSpan">temp.</span>mkdir
+        <span class="apidocSignatureSpan">(affixes, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function mkdir(affixes, callback) {
+  var dirPath = generateName(affixes, &#x27;d-&#x27;);
+  fs.mkdir(dirPath, 0700, function(err) {
+    if (!err) {
+      deleteDirOnExit(dirPath);
+    }
+    if (callback) {
+      callback(err, dirPath);
+    }
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+// Automatically track and cleanup files at exit
+temp.track();
+
+// For use with ConTeXt, http://wiki.contextgarden.net
+var myData = &#x22;\\starttext\nHello World\n\\stoptext&#x22;;
+
+temp.<span class="apidocCodeKeywordSpan">mkdir</span>(&#x27;pdfcreator&#x27;, function(err, dirPath) {
+var inputPath = path.join(dirPath, &#x27;input.tex&#x27;)
+fs.writeFile(inputPath, myData, function(err) {
+  if (err) throw err;
+  process.chdir(dirPath);
+  exec(&#x22;texexec &#x27;&#x22; + inputPath + &#x22;&#x27;&#x22;, function(err) {
+    if (err) throw err;
+    fs.readFile(path.join(dirPath, &#x27;input.pdf&#x27;), function(err, data) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.temp.mkdirSync" id="apidoc.element.temp.mkdirSync">
+        function <span class="apidocSignatureSpan">temp.</span>mkdirSync
+        <span class="apidocSignatureSpan">(affixes)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function mkdirSync(affixes) {
+  var dirPath = generateName(affixes, &#x27;d-&#x27;);
+  fs.mkdirSync(dirPath, 0700);
+  deleteDirOnExit(dirPath);
+  return dirPath;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+
+
+
+
+var temp = require(&#x27;temp&#x27;).track();
+
+var p = temp.<span class="apidocCodeKeywordSpan">mkdirSync</span>(&#x22;shouldBeDeletedOnExitNotJasmine&#x22;);
+console.log(&#x27;created dir &#x27; + p);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.temp.open" id="apidoc.element.temp.open">
+        function <span class="apidocSignatureSpan">temp.</span>open
+        <span class="apidocSignatureSpan">(affixes, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function open(affixes, callback) {
+  var filePath = generateName(affixes, &#x27;f-&#x27;);
+  fs.open(filePath, RDWR_EXCL, 0600, function(err, fd) {
+    if (!err) {
+      deleteFileOnExit(filePath);
+    }
+    if (callback) {
+      callback(err, {path: filePath, fd: fd});
+    }
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+// Automatically track and cleanup files at exit
+temp.track();
+
+// Fake data
+var myData = &#x22;foo\nbar\nfoo\nbaz&#x22;;
+
+// Process the data (note: error handling omitted)
+temp.<span class="apidocCodeKeywordSpan">open</span>(&#x27;myprefix&#x27;, function(err, info) {
+if (!err) {
+  fs.write(info.fd, myData);
+  fs.close(info.fd, function(err) {
+    exec(&#x22;grep foo &#x27;&#x22; + info.path + &#x22;&#x27; | wc -l&#x22;, function(err, stdout) {
+      util.puts(stdout.trim());
+    });
+  });
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.temp.openSync" id="apidoc.element.temp.openSync">
+        function <span class="apidocSignatureSpan">temp.</span>openSync
+        <span class="apidocSignatureSpan">(affixes)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function openSync(affixes) {
+  var filePath = generateName(affixes, &#x27;f-&#x27;);
+  var fd = fs.openSync(filePath, RDWR_EXCL, 0600);
+  deleteFileOnExit(filePath);
+  return {path: filePath, fd: fd};
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.temp.path" id="apidoc.element.temp.path">
+        function <span class="apidocSignatureSpan">temp.</span>path
+        <span class="apidocSignatureSpan">(rawAffixes, defaultPrefix)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">path = function (rawAffixes, defaultPrefix) {
+  var affixes = parseAffixes(rawAffixes, defaultPrefix);
+  var now = new Date();
+  var name = [affixes.prefix,
+              now.getYear(), now.getMonth(), now.getDate(),
+              &#x27;-&#x27;,
+              process.pid,
+              &#x27;-&#x27;,
+              (Math.random() * 0x100000000 + 1).toString(36),
+              affixes.suffix].join(&#x27;&#x27;);
+  return path.join(affixes.dir || exports.dir, name);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+### Just a path, please
+
+If you just want a unique name in your temporary directory, use
+`path`:
+
+```javascript
+var fs = require(&#x27;fs&#x27;);
+var tempName = temp.<span class="apidocCodeKeywordSpan">path</span>({suffix: &#x27;.pdf&#x27;});
+// Do something with tempName
+```
+
+Note: The file isn&#x27;t created for you, and the mode is not changed  -- and it
+will not be removed automatically at exit.  If you use `path`, it&#x27;s
+all up to you.
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.temp.track" id="apidoc.element.temp.track">
+        function <span class="apidocSignatureSpan">temp.</span>track
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">track = function (value) {
+  tracking = (value !== false);
+  return module.exports; // chainable
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+, fd: theFileDescriptor
+}
+```
+
+In this example we write to a temporary file and call out to `grep` and
+`wc -l` to determine the number of time `foo` occurs in the text.  The
+temporary file is chmod&#x27;d `0600` and cleaned up automatically when the
+process at exit (because `temp.<span class="apidocCodeKeywordSpan">track</span>()` is called):
+
+```javascript
+var temp = require(&#x27;temp&#x27;),
+fs   = require(&#x27;fs&#x27;),
+util  = require(&#x27;util&#x27;),
+exec = require(&#x27;child_process&#x27;).exec;
+...</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
