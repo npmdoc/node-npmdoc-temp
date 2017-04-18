@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://github.com/bruce/node-temp"
-
-    >temp (v0.8.3)</a>
+    <a href="https://github.com/bruce/node-temp">temp (v0.8.3)</a>
 </h1>
 <h4>Temporary files and directories</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.temp">module temp</a><ol>
 
@@ -263,7 +256,7 @@
     <li>description and source-code<pre class="apidocCodePre">function cleanup(callback) {
   if (!tracking) {
     if (callback) {
-      callback(new Error(&#x22;not tracking&#x22;));
+      callback(new Error("not tracking"));
     }
     return;
   }
@@ -283,20 +276,20 @@
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```javascript
-&#x3e; temp.cleanupSync();
+&gt; temp.cleanupSync();
 { files: 1,
   dirs:  0 }
 ```
 
 ```javascript
-&#x3e; temp.<span class="apidocCodeKeywordSpan">cleanup</span>(function(err, stats) {
+&gt; temp.<span class="apidocCodeKeywordSpan">cleanup</span>(function(err, stats) {
     console.log(stats);
   });
 { files: 1,
   dirs:  0 }
 ```
 
-Note: If you&#x27;re not tracking, an error (&#x22;not tracking&#x22;) will be passed
+Note: If you're not tracking, an error ("not tracking") will be passed
 ...</pre></li>
     </ul>
 
@@ -325,13 +318,13 @@ be returned (or passed to the callback) with cleanup counts and
 the file/directory tracking lists will be reset.
 
 ```javascript
-&#x3e; temp.<span class="apidocCodeKeywordSpan">cleanupSync</span>();
+&gt; temp.<span class="apidocCodeKeywordSpan">cleanupSync</span>();
 { files: 1,
   dirs:  0 }
 ```
 
 ```javascript
-&#x3e; temp.cleanup(function(err, stats) {
+&gt; temp.cleanup(function(err, stats) {
 console.log(stats);
 ...</pre></li>
     </ul>
@@ -346,7 +339,7 @@ console.log(stats);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function createWriteStream(affixes) {
-  var filePath = generateName(affixes, &#x27;s-&#x27;);
+  var filePath = generateName(affixes, 's-');
   var stream = fs.createWriteStream(filePath, {flags: RDWR_EXCL, mode: 0600});
   deleteFileOnExit(filePath);
   return stream;
@@ -354,13 +347,13 @@ console.log(stats);
     <li>example usage<pre class="apidocCodePre">...
 
 ```javascript
-var temp = require(&#x27;temp&#x27;);
+var temp = require('temp');
 
 // Automatically track and cleanup files at exit
 temp.track();
 
 var stream = temp.<span class="apidocCodeKeywordSpan">createWriteStream</span>();
-stream.write(&#x22;Some data&#x22;);
+stream.write("Some data");
 // Maybe do some other things
 stream.end();
 ```
@@ -379,7 +372,7 @@ stream.end();
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function mkdir(affixes, callback) {
-  var dirPath = generateName(affixes, &#x27;d-&#x27;);
+  var dirPath = generateName(affixes, 'd-');
   fs.mkdir(dirPath, 0700, function(err) {
     if (!err) {
       deleteDirOnExit(dirPath);
@@ -395,16 +388,16 @@ stream.end();
 temp.track();
 
 // For use with ConTeXt, http://wiki.contextgarden.net
-var myData = &#x22;\\starttext\nHello World\n\\stoptext&#x22;;
+var myData = "\\starttext\nHello World\n\\stoptext";
 
-temp.<span class="apidocCodeKeywordSpan">mkdir</span>(&#x27;pdfcreator&#x27;, function(err, dirPath) {
-var inputPath = path.join(dirPath, &#x27;input.tex&#x27;)
+temp.<span class="apidocCodeKeywordSpan">mkdir</span>('pdfcreator', function(err, dirPath) {
+var inputPath = path.join(dirPath, 'input.tex')
 fs.writeFile(inputPath, myData, function(err) {
   if (err) throw err;
   process.chdir(dirPath);
-  exec(&#x22;texexec &#x27;&#x22; + inputPath + &#x22;&#x27;&#x22;, function(err) {
+  exec("texexec '" + inputPath + "'", function(err) {
     if (err) throw err;
-    fs.readFile(path.join(dirPath, &#x27;input.pdf&#x27;), function(err, data) {
+    fs.readFile(path.join(dirPath, 'input.pdf'), function(err, data) {
 ...</pre></li>
     </ul>
 
@@ -418,7 +411,7 @@ fs.writeFile(inputPath, myData, function(err) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function mkdirSync(affixes) {
-  var dirPath = generateName(affixes, &#x27;d-&#x27;);
+  var dirPath = generateName(affixes, 'd-');
   fs.mkdirSync(dirPath, 0700);
   deleteDirOnExit(dirPath);
   return dirPath;
@@ -430,7 +423,7 @@ fs.writeFile(inputPath, myData, function(err) {
 }
 
 function mkdirSync(affixes) {
-  var dirPath = generateName(affixes, &#x27;d-&#x27;);
+  var dirPath = generateName(affixes, 'd-');
   fs.<span class="apidocCodeKeywordSpan">mkdirSync</span>(dirPath, 0700);
   deleteDirOnExit(dirPath);
   return dirPath;
@@ -452,7 +445,7 @@ function open(affixes, callback) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function open(affixes, callback) {
-  var filePath = generateName(affixes, &#x27;f-&#x27;);
+  var filePath = generateName(affixes, 'f-');
   fs.open(filePath, RDWR_EXCL, 0600, function(err, fd) {
     if (!err) {
       deleteFileOnExit(filePath);
@@ -467,14 +460,14 @@ function open(affixes, callback) {
 temp.track();
 
 // Fake data
-var myData = &#x22;foo\nbar\nfoo\nbaz&#x22;;
+var myData = "foo\nbar\nfoo\nbaz";
 
 // Process the data (note: error handling omitted)
-temp.<span class="apidocCodeKeywordSpan">open</span>(&#x27;myprefix&#x27;, function(err, info) {
+temp.<span class="apidocCodeKeywordSpan">open</span>('myprefix', function(err, info) {
 if (!err) {
   fs.write(info.fd, myData);
   fs.close(info.fd, function(err) {
-    exec(&#x22;grep foo &#x27;&#x22; + info.path + &#x22;&#x27; | wc -l&#x22;, function(err, stdout) {
+    exec("grep foo '" + info.path + "' | wc -l", function(err, stdout) {
       util.puts(stdout.trim());
     });
   });
@@ -491,7 +484,7 @@ if (!err) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function openSync(affixes) {
-  var filePath = generateName(affixes, &#x27;f-&#x27;);
+  var filePath = generateName(affixes, 'f-');
   var fd = fs.openSync(filePath, RDWR_EXCL, 0600);
   deleteFileOnExit(filePath);
   return {path: filePath, fd: fd};
@@ -503,14 +496,14 @@ if (!err) {
 }
 
 function openSync(affixes) {
-var filePath = generateName(affixes, &#x27;f-&#x27;);
+var filePath = generateName(affixes, 'f-');
 var fd = fs.<span class="apidocCodeKeywordSpan">openSync</span>(filePath, RDWR_EXCL, 0600);
 deleteFileOnExit(filePath);
 return {path: filePath, fd: fd};
 }
 
 function createWriteStream(affixes) {
-var filePath = generateName(affixes, &#x27;s-&#x27;);
+var filePath = generateName(affixes, 's-');
 var stream = fs.createWriteStream(filePath, {flags: RDWR_EXCL, mode: 0600});
 ...</pre></li>
     </ul>
@@ -529,11 +522,11 @@ var stream = fs.createWriteStream(filePath, {flags: RDWR_EXCL, mode: 0600});
   var now = new Date();
   var name = [affixes.prefix,
               now.getYear(), now.getMonth(), now.getDate(),
-              &#x27;-&#x27;,
+              '-',
               process.pid,
-              &#x27;-&#x27;,
+              '-',
               (Math.random() * 0x100000000 + 1).toString(36),
-              affixes.suffix].join(&#x27;&#x27;);
+              affixes.suffix].join('');
   return path.join(affixes.dir || exports.dir, name);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
@@ -543,13 +536,13 @@ If you just want a unique name in your temporary directory, use
 `path`:
 
 ```javascript
-var fs = require(&#x27;fs&#x27;);
-var tempName = temp.<span class="apidocCodeKeywordSpan">path</span>({suffix: &#x27;.pdf&#x27;});
+var fs = require('fs');
+var tempName = temp.<span class="apidocCodeKeywordSpan">path</span>({suffix: '.pdf'});
 // Do something with tempName
 ```
 
-Note: The file isn&#x27;t created for you, and the mode is not changed  -- and it
-will not be removed automatically at exit.  If you use `path`, it&#x27;s
+Note: The file isn't created for you, and the mode is not changed  -- and it
+will not be removed automatically at exit.  If you use `path`, it's
 all up to you.
 ...</pre></li>
     </ul>
@@ -574,14 +567,14 @@ all up to you.
 
 In this example we write to a temporary file and call out to `grep` and
 `wc -l` to determine the number of time `foo` occurs in the text.  The
-temporary file is chmod&#x27;d `0600` and cleaned up automatically when the
+temporary file is chmod'd `0600` and cleaned up automatically when the
 process at exit (because `temp.<span class="apidocCodeKeywordSpan">track</span>()` is called):
 
 ```javascript
-var temp = require(&#x27;temp&#x27;),
-fs   = require(&#x27;fs&#x27;),
-util  = require(&#x27;util&#x27;),
-exec = require(&#x27;child_process&#x27;).exec;
+var temp = require('temp'),
+fs   = require('fs'),
+util  = require('util'),
+exec = require('child_process').exec;
 ...</pre></li>
     </ul>
 
@@ -606,7 +599,7 @@ exec = require(&#x27;child_process&#x27;).exec;
     <li>description and source-code<pre class="apidocCodePre">function cleanup(callback) {
   if (!tracking) {
     if (callback) {
-      callback(new Error(&#x22;not tracking&#x22;));
+      callback(new Error("not tracking"));
     }
     return;
   }
@@ -626,20 +619,20 @@ exec = require(&#x27;child_process&#x27;).exec;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```javascript
-&#x3e; temp.cleanupSync();
+&gt; temp.cleanupSync();
 { files: 1,
   dirs:  0 }
 ```
 
 ```javascript
-&#x3e; temp.<span class="apidocCodeKeywordSpan">cleanup</span>(function(err, stats) {
+&gt; temp.<span class="apidocCodeKeywordSpan">cleanup</span>(function(err, stats) {
     console.log(stats);
   });
 { files: 1,
   dirs:  0 }
 ```
 
-Note: If you&#x27;re not tracking, an error (&#x22;not tracking&#x22;) will be passed
+Note: If you're not tracking, an error ("not tracking") will be passed
 ...</pre></li>
     </ul>
 
@@ -668,13 +661,13 @@ be returned (or passed to the callback) with cleanup counts and
 the file/directory tracking lists will be reset.
 
 ```javascript
-&#x3e; temp.<span class="apidocCodeKeywordSpan">cleanupSync</span>();
+&gt; temp.<span class="apidocCodeKeywordSpan">cleanupSync</span>();
 { files: 1,
   dirs:  0 }
 ```
 
 ```javascript
-&#x3e; temp.cleanup(function(err, stats) {
+&gt; temp.cleanup(function(err, stats) {
 console.log(stats);
 ...</pre></li>
     </ul>
@@ -689,7 +682,7 @@ console.log(stats);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function createWriteStream(affixes) {
-  var filePath = generateName(affixes, &#x27;s-&#x27;);
+  var filePath = generateName(affixes, 's-');
   var stream = fs.createWriteStream(filePath, {flags: RDWR_EXCL, mode: 0600});
   deleteFileOnExit(filePath);
   return stream;
@@ -697,13 +690,13 @@ console.log(stats);
     <li>example usage<pre class="apidocCodePre">...
 
 ```javascript
-var temp = require(&#x27;temp&#x27;);
+var temp = require('temp');
 
 // Automatically track and cleanup files at exit
 temp.track();
 
 var stream = temp.<span class="apidocCodeKeywordSpan">createWriteStream</span>();
-stream.write(&#x22;Some data&#x22;);
+stream.write("Some data");
 // Maybe do some other things
 stream.end();
 ```
@@ -722,7 +715,7 @@ stream.end();
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function mkdir(affixes, callback) {
-  var dirPath = generateName(affixes, &#x27;d-&#x27;);
+  var dirPath = generateName(affixes, 'd-');
   fs.mkdir(dirPath, 0700, function(err) {
     if (!err) {
       deleteDirOnExit(dirPath);
@@ -738,16 +731,16 @@ stream.end();
 temp.track();
 
 // For use with ConTeXt, http://wiki.contextgarden.net
-var myData = &#x22;\\starttext\nHello World\n\\stoptext&#x22;;
+var myData = "\\starttext\nHello World\n\\stoptext";
 
-temp.<span class="apidocCodeKeywordSpan">mkdir</span>(&#x27;pdfcreator&#x27;, function(err, dirPath) {
-var inputPath = path.join(dirPath, &#x27;input.tex&#x27;)
+temp.<span class="apidocCodeKeywordSpan">mkdir</span>('pdfcreator', function(err, dirPath) {
+var inputPath = path.join(dirPath, 'input.tex')
 fs.writeFile(inputPath, myData, function(err) {
   if (err) throw err;
   process.chdir(dirPath);
-  exec(&#x22;texexec &#x27;&#x22; + inputPath + &#x22;&#x27;&#x22;, function(err) {
+  exec("texexec '" + inputPath + "'", function(err) {
     if (err) throw err;
-    fs.readFile(path.join(dirPath, &#x27;input.pdf&#x27;), function(err, data) {
+    fs.readFile(path.join(dirPath, 'input.pdf'), function(err, data) {
 ...</pre></li>
     </ul>
 
@@ -761,7 +754,7 @@ fs.writeFile(inputPath, myData, function(err) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function mkdirSync(affixes) {
-  var dirPath = generateName(affixes, &#x27;d-&#x27;);
+  var dirPath = generateName(affixes, 'd-');
   fs.mkdirSync(dirPath, 0700);
   deleteDirOnExit(dirPath);
   return dirPath;
@@ -773,7 +766,7 @@ fs.writeFile(inputPath, myData, function(err) {
 }
 
 function mkdirSync(affixes) {
-  var dirPath = generateName(affixes, &#x27;d-&#x27;);
+  var dirPath = generateName(affixes, 'd-');
   fs.<span class="apidocCodeKeywordSpan">mkdirSync</span>(dirPath, 0700);
   deleteDirOnExit(dirPath);
   return dirPath;
@@ -795,7 +788,7 @@ function open(affixes, callback) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function open(affixes, callback) {
-  var filePath = generateName(affixes, &#x27;f-&#x27;);
+  var filePath = generateName(affixes, 'f-');
   fs.open(filePath, RDWR_EXCL, 0600, function(err, fd) {
     if (!err) {
       deleteFileOnExit(filePath);
@@ -810,14 +803,14 @@ function open(affixes, callback) {
 temp.track();
 
 // Fake data
-var myData = &#x22;foo\nbar\nfoo\nbaz&#x22;;
+var myData = "foo\nbar\nfoo\nbaz";
 
 // Process the data (note: error handling omitted)
-temp.<span class="apidocCodeKeywordSpan">open</span>(&#x27;myprefix&#x27;, function(err, info) {
+temp.<span class="apidocCodeKeywordSpan">open</span>('myprefix', function(err, info) {
 if (!err) {
   fs.write(info.fd, myData);
   fs.close(info.fd, function(err) {
-    exec(&#x22;grep foo &#x27;&#x22; + info.path + &#x22;&#x27; | wc -l&#x22;, function(err, stdout) {
+    exec("grep foo '" + info.path + "' | wc -l", function(err, stdout) {
       util.puts(stdout.trim());
     });
   });
@@ -834,7 +827,7 @@ if (!err) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function openSync(affixes) {
-  var filePath = generateName(affixes, &#x27;f-&#x27;);
+  var filePath = generateName(affixes, 'f-');
   var fd = fs.openSync(filePath, RDWR_EXCL, 0600);
   deleteFileOnExit(filePath);
   return {path: filePath, fd: fd};
@@ -846,14 +839,14 @@ if (!err) {
 }
 
 function openSync(affixes) {
-var filePath = generateName(affixes, &#x27;f-&#x27;);
+var filePath = generateName(affixes, 'f-');
 var fd = fs.<span class="apidocCodeKeywordSpan">openSync</span>(filePath, RDWR_EXCL, 0600);
 deleteFileOnExit(filePath);
 return {path: filePath, fd: fd};
 }
 
 function createWriteStream(affixes) {
-var filePath = generateName(affixes, &#x27;s-&#x27;);
+var filePath = generateName(affixes, 's-');
 var stream = fs.createWriteStream(filePath, {flags: RDWR_EXCL, mode: 0600});
 ...</pre></li>
     </ul>
@@ -872,11 +865,11 @@ var stream = fs.createWriteStream(filePath, {flags: RDWR_EXCL, mode: 0600});
   var now = new Date();
   var name = [affixes.prefix,
               now.getYear(), now.getMonth(), now.getDate(),
-              &#x27;-&#x27;,
+              '-',
               process.pid,
-              &#x27;-&#x27;,
+              '-',
               (Math.random() * 0x100000000 + 1).toString(36),
-              affixes.suffix].join(&#x27;&#x27;);
+              affixes.suffix].join('');
   return path.join(affixes.dir || exports.dir, name);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
@@ -886,13 +879,13 @@ If you just want a unique name in your temporary directory, use
 `path`:
 
 ```javascript
-var fs = require(&#x27;fs&#x27;);
-var tempName = temp.<span class="apidocCodeKeywordSpan">path</span>({suffix: &#x27;.pdf&#x27;});
+var fs = require('fs');
+var tempName = temp.<span class="apidocCodeKeywordSpan">path</span>({suffix: '.pdf'});
 // Do something with tempName
 ```
 
-Note: The file isn&#x27;t created for you, and the mode is not changed  -- and it
-will not be removed automatically at exit.  If you use `path`, it&#x27;s
+Note: The file isn't created for you, and the mode is not changed  -- and it
+will not be removed automatically at exit.  If you use `path`, it's
 all up to you.
 ...</pre></li>
     </ul>
@@ -917,14 +910,14 @@ all up to you.
 
 In this example we write to a temporary file and call out to `grep` and
 `wc -l` to determine the number of time `foo` occurs in the text.  The
-temporary file is chmod&#x27;d `0600` and cleaned up automatically when the
+temporary file is chmod'd `0600` and cleaned up automatically when the
 process at exit (because `temp.<span class="apidocCodeKeywordSpan">track</span>()` is called):
 
 ```javascript
-var temp = require(&#x27;temp&#x27;),
-fs   = require(&#x27;fs&#x27;),
-util  = require(&#x27;util&#x27;),
-exec = require(&#x27;child_process&#x27;).exec;
+var temp = require('temp'),
+fs   = require('fs'),
+util  = require('util'),
+exec = require('child_process').exec;
 ...</pre></li>
     </ul>
 
@@ -939,3 +932,4 @@ exec = require(&#x27;child_process&#x27;).exec;
     ]
 </div>
 </div>
+</body></html>
